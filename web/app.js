@@ -47,9 +47,9 @@ const STRINGS = {
     offBtn: "अधिकारी के रूप में रजिस्टर करें", ibFwd: "इसे संभालते हैं:",
     peopleHand: "जो लोग शहर ठीक करते हैं",
     peopleTitle: "शहर लोग ठीक करते हैं। हम बस यह पक्का करते हैं कि बात उन तक पहुँचे।",
-    peopleP: "लाइनमैन, सफ़ाई कर्मचारी, वार्ड इंजीनियर। ज़्यादातर चीज़ें ठीक करना चाहते हैं। नागरिक सेतु उन्हें साफ़ शिकायत, फ़ोटो और सही लोकेशन देता है, न कि फ़ॉरवर्ड का फ़ॉरवर्ड।",
+    peopleP: "लाइनमैन, सफ़ाई कर्मचारी, वार्ड इंजीनियर। ज़्यादातर चीज़ें ठीक करना चाहते हैं। जन आवाज़ उन्हें साफ़ शिकायत, फ़ोटो और सही लोकेशन देती है, न कि फ़ॉरवर्ड का फ़ॉरवर्ड।",
     faqKicker: "सवाल", faqTitle: "लोग हमसे क्या पूछते हैं",
-    q1: "क्या नागरिक सेतु सरकारी सेवा है?", a1: "नहीं। हम एक स्वतंत्र नागरिक सेवा हैं। हम आपकी शिकायत ज़िम्मेदार सरकारी अधिकारी तक पहुँचाते हैं और बंद होने तक उस पर नज़र रखते हैं।",
+    q1: "क्या जन आवाज़ सरकारी सेवा है?", a1: "नहीं। हम एक स्वतंत्र नागरिक सेवा हैं। हम आपकी शिकायत ज़िम्मेदार सरकारी अधिकारी तक पहुँचाते हैं और बंद होने तक उस पर नज़र रखते हैं।",
     q2: "क्या इसका कोई पैसा लगता है?", a2: "नागरिकों के लिए मुफ़्त है। सिर्फ़ आपका सामान्य कॉल चार्ज लगता है। हम कभी पैसे, OTP या बैंक जानकारी नहीं माँगेंगे।",
     q3: "मेरे पास WhatsApp नहीं है। क्या फिर भी शिकायत कर सकता हूँ?", a3: "हाँ। सिर्फ़ कॉल से शिकायत दर्ज होकर अधिकारी तक जाती है। फ़ोटो और अपडेट के लिए आप परिवार के किसी सदस्य का WhatsApp नंबर भी दे सकते हैं।",
     q4: "यह किन शहरों में काम करता है?", a4: "पूरे भारत से शिकायतें ली जाती हैं। जहाँ हमें वार्ड अधिकारी पता है, वहाँ उन्हें जाती है; नहीं तो शहर या ज़िला कार्यालय को। वार्ड स्तर की शुरुआत मुंबई से हो रही है।",
@@ -57,7 +57,7 @@ const STRINGS = {
     q6: "अगर आपातकाल हो तो?", a6: "आग, दुर्घटना, सड़क पर खुला तार, या जान का कोई भी खतरा हो, तो पहले 112 पर कॉल करें। बाद में हमें बता सकते हैं ताकि विभाग को भी पता चले।",
     ctaTitle: "घर लौटते हुए कुछ टूटा दिखा?", ctaP: "करीब दो मिनट लगते हैं। आज ही किसी ज़िम्मेदार तक बात पहुँचेगी।",
     emTitle: "आपातकाल?", emP: "आग, दुर्घटना या जान के खतरे में कॉल करें",
-    disclaimer: "नागरिक सेतु एक स्वतंत्र नागरिक सेवा है, कोई सरकारी संस्था नहीं। हम शिकायतें ज़िम्मेदार अधिकारियों तक पहुँचाते हैं।",
+    disclaimer: "जन आवाज़ एक स्वतंत्र नागरिक सेवा है, कोई सरकारी संस्था नहीं। हम शिकायतें ज़िम्मेदार अधिकारियों तक पहुँचाते हैं।",
     credits: "फ़ोटो और वीडियो का श्रेय",
     dlgTitle: "शिकायत के लिए कॉल करें", dlgP: "कॉल करने के लिए फ़ोन कैमरे से स्कैन करें, या नीचे दिया नंबर डायल करें।",
     copy: "नंबर कॉपी करें", copied: "कॉपी हो गया!", callDevice: "इस डिवाइस से कॉल करें",
@@ -77,7 +77,7 @@ function applyLang(next) {
   i18nNodes.forEach((el) => { el.textContent = t(el.dataset.i18n); });
   document.getElementById("langToggle").textContent = lang === "hi" ? "English" : "हिंदी";
   updatePlayLabel();
-  try { localStorage.setItem("ns-lang", lang); } catch (_) {}
+  try { localStorage.setItem("ja-lang", lang); } catch (_) {}
 }
 document.getElementById("langToggle").addEventListener("click", () => applyLang(lang === "hi" ? "en" : "hi"));
 
@@ -254,28 +254,28 @@ if (reduceMotion) {
 /* =============== Public map (sample data) =============== */
 
 const SAMPLE_TICKETS = [
-  ["NS-1042", "Streetlight", "Lokhandwala, Andheri West", "K/W", 19.1416, 72.8270, "fixed"],
-  ["NS-1043", "Pothole", "SV Road, Andheri West", "K/W", 19.1300, 72.8410, "progress"],
-  ["NS-1044", "Garbage", "Hill Road, Bandra West", "H/W", 19.0560, 72.8300, "open"],
-  ["NS-1045", "Waterlogging", "Hindmata, Dadar", "F/S", 19.0040, 72.8420, "progress"],
-  ["NS-1046", "Drainage", "Kurla West market", "L", 19.0700, 72.8800, "open"],
-  ["NS-1047", "Streetlight", "Colaba Causeway", "A", 18.9150, 72.8250, "fixed"],
-  ["NS-1048", "Pothole", "Western Express Hwy, Borivali", "R/C", 19.2310, 72.8600, "open"],
-  ["NS-1049", "Garbage", "LBS Marg, Ghatkopar West", "N", 19.0890, 72.9050, "fixed"],
-  ["NS-1050", "Water supply", "Chembur Camp", "M/W", 19.0560, 72.8990, "progress"],
-  ["NS-1051", "Stray animals", "Malad West", "P/N", 19.1870, 72.8420, "open"],
-  ["NS-1052", "Fallen tree", "Hiranandani, Powai", "S", 19.1180, 72.9090, "fixed"],
-  ["NS-1053", "Streetlight", "Worli Naka", "G/S", 19.0100, 72.8180, "progress"],
-  ["NS-1054", "Pothole", "Sion Circle", "F/N", 19.0410, 72.8620, "fixed"],
-  ["NS-1055", "Drainage", "Goregaon East", "P/S", 19.1650, 72.8580, "open"],
-  ["NS-1056", "Garbage", "Mulund West station road", "T", 19.1720, 72.9520, "progress"],
-  ["NS-1057", "Public toilet", "Vile Parle East", "K/E", 19.0990, 72.8510, "open"],
-  ["NS-1058", "Waterlogging", "Lower Parel", "G/S", 18.9960, 72.8300, "fixed"],
-  ["NS-1059", "Mosquito breeding", "Byculla", "E", 18.9790, 72.8340, "progress"],
-  ["NS-1060", "Encroachment", "Santacruz West", "H/W", 19.0820, 72.8370, "open"],
-  ["NS-1061", "Streetlight", "Jogeshwari East", "K/E", 19.1380, 72.8580, "fixed"],
-  ["NS-1062", "Pothole", "Eastern Express Hwy, Vikhroli", "S", 19.1100, 72.9290, "progress"],
-  ["NS-1063", "Garbage", "Dharavi 90 Feet Road", "G/N", 19.0420, 72.8530, "fixed"],
+  ["JA-1042", "Streetlight", "Lokhandwala, Andheri West", "K/W", 19.1416, 72.8270, "fixed"],
+  ["JA-1043", "Pothole", "SV Road, Andheri West", "K/W", 19.1300, 72.8410, "progress"],
+  ["JA-1044", "Garbage", "Hill Road, Bandra West", "H/W", 19.0560, 72.8300, "open"],
+  ["JA-1045", "Waterlogging", "Hindmata, Dadar", "F/S", 19.0040, 72.8420, "progress"],
+  ["JA-1046", "Drainage", "Kurla West market", "L", 19.0700, 72.8800, "open"],
+  ["JA-1047", "Streetlight", "Colaba Causeway", "A", 18.9150, 72.8250, "fixed"],
+  ["JA-1048", "Pothole", "Western Express Hwy, Borivali", "R/C", 19.2310, 72.8600, "open"],
+  ["JA-1049", "Garbage", "LBS Marg, Ghatkopar West", "N", 19.0890, 72.9050, "fixed"],
+  ["JA-1050", "Water supply", "Chembur Camp", "M/W", 19.0560, 72.8990, "progress"],
+  ["JA-1051", "Stray animals", "Malad West", "P/N", 19.1870, 72.8420, "open"],
+  ["JA-1052", "Fallen tree", "Hiranandani, Powai", "S", 19.1180, 72.9090, "fixed"],
+  ["JA-1053", "Streetlight", "Worli Naka", "G/S", 19.0100, 72.8180, "progress"],
+  ["JA-1054", "Pothole", "Sion Circle", "F/N", 19.0410, 72.8620, "fixed"],
+  ["JA-1055", "Drainage", "Goregaon East", "P/S", 19.1650, 72.8580, "open"],
+  ["JA-1056", "Garbage", "Mulund West station road", "T", 19.1720, 72.9520, "progress"],
+  ["JA-1057", "Public toilet", "Vile Parle East", "K/E", 19.0990, 72.8510, "open"],
+  ["JA-1058", "Waterlogging", "Lower Parel", "G/S", 18.9960, 72.8300, "fixed"],
+  ["JA-1059", "Mosquito breeding", "Byculla", "E", 18.9790, 72.8340, "progress"],
+  ["JA-1060", "Encroachment", "Santacruz West", "H/W", 19.0820, 72.8370, "open"],
+  ["JA-1061", "Streetlight", "Jogeshwari East", "K/E", 19.1380, 72.8580, "fixed"],
+  ["JA-1062", "Pothole", "Eastern Express Hwy, Vikhroli", "S", 19.1100, 72.9290, "progress"],
+  ["JA-1063", "Garbage", "Dharavi 90 Feet Road", "G/N", 19.0420, 72.8530, "fixed"],
 ];
 const STATUS_LABEL = { open: ["Open", "खुला"], progress: ["In progress", "काम जारी"], fixed: ["Fixed", "ठीक"] };
 const STATUS_COLOR = { open: "var(--chili)", progress: "#c27f12", fixed: "var(--leaf)" };
@@ -368,7 +368,7 @@ copyBtn.addEventListener("click", async () => {
 /* =============== Start =============== */
 
 let saved = null;
-try { saved = localStorage.getItem("ns-lang"); } catch (_) {}
+try { saved = localStorage.getItem("ja-lang"); } catch (_) {}
 applyLang(saved === "hi" ? "hi" : "en");
 showScene(0);
 requestAnimationFrame(tick);

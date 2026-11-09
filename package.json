@@ -1,8 +1,8 @@
 {
-  "name": "nagrik-setu",
+  "name": "jan-awaaz",
   "version": "0.1.0",
   "private": true,
-  "description": "Nagrik Setu: report civic problems with one phone call",
+  "description": "Jan Awaaz: report civic problems with one phone call",
   "scripts": {
     "dev": "serve web -l 3000",
     "start": "serve web -l 3000"
