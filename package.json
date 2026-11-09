@@ -1,0 +1,13 @@
+{
+  "name": "nagrik-setu",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Nagrik Setu: report civic problems with one phone call",
+  "scripts": {
+    "dev": "serve web -l 3000",
+    "start": "serve web -l 3000"
+  },
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}

@@ -4,252 +4,561 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nagrik Setu</title>
-  <meta name="description" content="Report any civic problem with one phone call, in your language. Nagrik Setu sends it straight to the officer responsible for your area.">
+  <meta name="description" content="Report any civic problem with one phone call, in your language. Nagrik Setu sends it straight to the officer responsible for your area and keeps you updated on WhatsApp.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hind:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
-  <header class="site-header">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- ============ Header ============ -->
+  <header class="site-header" id="siteHeader">
     <div class="container header-inner">
       <a class="brand" href="#top" aria-label="Nagrik Setu home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" width="32" height="32"><path d="M3 22c4-8 9-12 13-12s9 4 13 12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M8 22v-5M16 22V10M24 22v-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/><path d="M2 24h28" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
-        </span>
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="var(--ink)"/>
+          <path d="M6 27c4.5-9 9.3-13 14-13s9.5 4 14 13" fill="none" stroke="var(--marigold)" stroke-width="3" stroke-linecap="round"/>
+          <path d="M12 27v-6M20 27V14M28 27v-6" stroke="var(--paper)" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M5 29h30" stroke="var(--paper)" stroke-width="3" stroke-linecap="round"/>
+        </svg>
         <span class="brand-text">
           <strong>Nagrik Setu</strong>
           <small lang="hi">नागरिक सेतु</small>
         </span>
       </a>
-      <nav class="header-actions">
-        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">हिंदी</button>
-        <a class="btn btn-primary btn-sm" href="tel:+917969215737" data-call>
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>
-          <span data-i18n="callShort">Call now</span>
-        </a>
+      <nav class="main-nav" aria-label="Sections">
+        <a href="#how" data-i18n="navHow">How it works</a>
+        <a href="#demo" data-i18n="navDemo">Demo</a>
+        <a href="#features" data-i18n="navFeatures">Features</a>
+        <a href="#map" data-i18n="navMap">Map</a>
+        <a href="#officers" data-i18n="navOfficers">For officers</a>
+        <a href="#faq" data-i18n="navFaq">FAQ</a>
       </nav>
+      <div class="header-actions">
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language">हिंदी</button>
+        <a class="btn btn-ink btn-sm" href="tel:+917969215737" data-call>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>
+          <span data-i18n="callShort">Call</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <main id="top">
-    <!-- Hero -->
-    <section class="hero">
+  <main id="main">
+    <!-- ============ Hero ============ -->
+    <section class="hero" id="top">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/video/street-mumbai-poster.jpg" aria-hidden="true">
+        <source src="assets/video/street-mumbai.mp4" type="video/mp4">
+      </video>
+      <div class="hero-shade" aria-hidden="true"></div>
+
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow" data-i18n="eyebrow">No app. Any language. Anywhere in India.</p>
-          <h1 data-i18n="heroTitle">Report a civic problem with one phone call.</h1>
-          <p class="lead" data-i18n="heroLead">Broken streetlight, pothole, garbage, water leak? Just call and tell us in your own language. We send it straight to the officer responsible for your area, and update you on WhatsApp until it's fixed.</p>
+          <p class="sticker" data-i18n="eyebrow">Civic helpline · no app needed</p>
+          <h1 class="hero-title">
+            <span class="line"><span data-i18n="heroL1">Your street's problem,</span></span>
+            <span class="line"><span data-i18n="heroL2">on the right</span> <span class="hl" data-i18n="heroL3">officer's desk.</span></span>
+          </h1>
+          <p class="lead" data-i18n="heroLead">Call, describe the problem in your own language, and we send it to the one officer who looks after your area. Then we keep you posted on WhatsApp until it's actually fixed.</p>
 
           <div class="hero-cta">
-            <a class="btn btn-primary btn-lg" href="tel:+917969215737" data-call>
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>
+            <a class="btn btn-marigold btn-lg" href="tel:+917969215737" data-call>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>
               <span data-i18n="makeComplaint">Make a complaint</span>
             </a>
-            <a class="btn btn-ghost btn-lg" href="#demo" data-i18n="watchDemo">See how it works</a>
+            <a class="btn btn-outline-light btn-lg" href="#demo">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+              <span data-i18n="watchDemo">Watch the demo</span>
+            </a>
           </div>
 
-          <p class="hero-number">
-            <span data-i18n="orDial">Or dial</span>
-            <a href="tel:+917969215737" data-call class="number-link">+91 79 6921 5737</a>
-          </p>
-
-          <ul class="trust-row">
-            <li data-i18n="trust1">Free for citizens</li>
-            <li data-i18n="trust2">Hindi, English, Marathi &amp; more</li>
-            <li data-i18n="trust3">Works on any phone</li>
-          </ul>
+          <a class="hero-number" href="tel:+917969215737" data-call>
+            <span data-i18n="orDial">or dial</span>
+            <strong>+91 79 6921 5737</strong>
+          </a>
         </div>
 
-        <!-- Demo video / animated preview -->
-        <div class="hero-media" id="demo">
-          <div class="phone" id="demoPlayer" role="region" aria-label="Project demo">
-            <video id="demoVideo" class="demo-video" src="assets/demo.mp4" poster="" muted playsinline loop preload="metadata" hidden></video>
-
-            <div class="story" id="story" aria-live="polite">
-              <div class="story-progress" aria-hidden="true">
-                <span></span><span></span><span></span><span></span><span></span>
-              </div>
-
-              <div class="scene" data-scene="0">
-                <div class="scene-icon ring">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>
-                </div>
-                <p class="scene-label">Calling Nagrik Setu…</p>
-                <div class="bubble agent" lang="hi">नमस्ते! नागरिक सेतु में आपका स्वागत है। मैं सहायक हूँ। बताइए, आज मैं आपकी क्या मदद कर सकती हूँ?</div>
-              </div>
-
-              <div class="scene" data-scene="1">
-                <p class="scene-label" data-i18n="s2">Tell the problem in your language</p>
-                <div class="bubble caller" lang="hi">हमारी गली में तीन दिन से स्ट्रीटलाइट बंद है।</div>
-                <div class="bubble agent" lang="hi">समझ गई। यह कौन से शहर और इलाके में है?</div>
-                <div class="bubble caller">Mumbai, Andheri West, Lokhandwala.</div>
-              </div>
-
-              <div class="scene" data-scene="2">
-                <p class="scene-label" data-i18n="s3">Add a photo and location on WhatsApp</p>
-                <div class="wa-card">
-                  <div class="wa-head">Nagrik Setu</div>
-                  <div class="wa-msg">Complaint <b>NS-1042</b> registered. Tap to add a photo and location pin.</div>
-                  <div class="wa-photo" aria-hidden="true">
-                    <svg viewBox="0 0 64 64"><path d="M30 8h4v34h-4z" fill="currentColor" opacity=".55"/><path d="M22 8h20l-4 6H26z" fill="currentColor"/><circle cx="32" cy="17" r="3" fill="#f5b93b"/><path d="M14 56h36" stroke="currentColor" stroke-width="3"/></svg>
-                  </div>
-                  <div class="wa-pin">📍 Lokhandwala, Andheri West</div>
-                </div>
-              </div>
-
-              <div class="scene" data-scene="3">
-                <p class="scene-label" data-i18n="s4">Sent to the exact officer</p>
-                <div class="route">
-                  <span class="chip">Streetlight</span>
-                  <span class="arrow" aria-hidden="true">→</span>
-                  <span class="chip">Ward K/West</span>
-                </div>
-                <div class="officer-card">
-                  <div class="officer-title">Junior Engineer, Electrical</div>
-                  <div class="officer-sub">Ticket NS-1042 · High severity</div>
-                  <div class="officer-actions">
-                    <span class="pill ok">Resolved</span>
-                    <span class="pill wip">In progress</span>
-                    <span class="pill no">Not my area</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="scene" data-scene="4">
-                <div class="scene-icon done">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" fill="currentColor"/></svg>
-                </div>
-                <p class="scene-label" data-i18n="s5">You confirm it's really fixed</p>
-                <div class="bubble agent">Officer marked NS-1042 as resolved. Is it fixed? Reply with a photo.</div>
-                <div class="bubble caller">Yes, the light is working now 👍</div>
-              </div>
-            </div>
+        <!-- Ticket stub that moves through its life -->
+        <div class="ticket" id="heroTicket" aria-hidden="true">
+          <div class="ticket-top">
+            <span class="ticket-id">NS-1042</span>
+            <span class="ticket-cat">Streetlight</span>
           </div>
-          <button class="play-toggle" id="playToggle" type="button" aria-pressed="false" data-i18n="pause">Pause</button>
+          <p class="ticket-where">Lokhandwala Back Road, Andheri West</p>
+          <ol class="ticket-steps">
+            <li><span class="dot"></span><span data-i18n="tk1">Complaint registered</span><time>9:12 pm</time></li>
+            <li><span class="dot"></span><span data-i18n="tk2">Photo &amp; location received</span><time>9:15 pm</time></li>
+            <li><span class="dot"></span><span data-i18n="tk3">Sent to JE Electrical, K/West</span><time>9:15 pm</time></li>
+            <li><span class="dot"></span><span data-i18n="tk4">Officer: work in progress</span><time>10:40 am</time></li>
+            <li><span class="dot"></span><span data-i18n="tk5">Citizen confirmed: fixed</span><time>6:05 pm</time></li>
+          </ol>
+          <div class="ticket-stamp" data-i18n="stamp">Fixed</div>
+          <div class="ticket-perf"></div>
+          <p class="ticket-foot" data-i18n="ticketFoot">Sample ticket</p>
         </div>
+      </div>
+
+      <a class="scroll-cue" href="#problem" aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- ============ Languages marquee ============ -->
+    <div class="marquee" aria-label="Talk in the language you are comfortable in">
+      <div class="marquee-track">
+        <span lang="hi">नमस्ते</span><span>Hello</span><span lang="mr">नमस्कार</span><span lang="gu">નમસ્તે</span><span lang="bn">নমস্কার</span><span lang="ta">வணக்கம்</span><span lang="te">నమస్కారం</span><span lang="kn">ನಮಸ್ಕಾರ</span><span lang="ml">നമസ്കാരം</span><span lang="pa">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</span><span lang="or">ନମସ୍କାର</span><span lang="ur" dir="rtl">آداب</span>
+        <span lang="hi" aria-hidden="true">नमस्ते</span><span aria-hidden="true">Hello</span><span lang="mr" aria-hidden="true">नमस्कार</span><span lang="gu" aria-hidden="true">નમસ્તે</span><span lang="bn" aria-hidden="true">নমস্কার</span><span lang="ta" aria-hidden="true">வணக்கம்</span><span lang="te" aria-hidden="true">నమస్కారం</span><span lang="kn" aria-hidden="true">ನಮಸ್ಕಾರ</span><span lang="ml" aria-hidden="true">നമസ്കാരം</span><span lang="pa" aria-hidden="true">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</span><span lang="or" aria-hidden="true">ନମସ୍କାର</span><span lang="ur" dir="rtl" aria-hidden="true">آداب</span>
+      </div>
+    </div>
+
+    <!-- ============ Problem ============ -->
+    <section class="section problem" id="problem">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="probKicker">The problem</p>
+          <h2 data-i18n="probTitle">Complaints don't die because people stop caring. They die in the wrong inbox.</h2>
+        </div>
+
+        <div class="photo-strip">
+          <figure class="photo reveal" style="--r:-2deg">
+            <img src="assets/img/pothole-kolkata.jpg" alt="Water-filled potholes on a road outside Kolkata airport" loading="lazy" width="1400" height="1050">
+            <figcaption>Pothole, outside Kolkata airport</figcaption>
+          </figure>
+          <figure class="photo reveal" style="--r:1.5deg">
+            <img src="assets/img/garbage-delhi.jpg" alt="A large heap of uncollected garbage beside a shelter in Batla House, Delhi" loading="lazy" width="1400" height="1050">
+            <figcaption>Garbage heap, Batla House, Delhi</figcaption>
+          </figure>
+          <figure class="photo reveal" style="--r:-1deg">
+            <img src="assets/img/monsoon-mumbai.jpg" alt="People wading through a waterlogged Mumbai street in the monsoon" loading="lazy" width="989" height="742">
+            <figcaption>Monsoon street, Mumbai</figcaption>
+          </figure>
+          <figure class="photo reveal" style="--r:2deg">
+            <img src="assets/img/streetlight-night.jpg" alt="A residential street at night lit by a few street lights" loading="lazy" width="1050" height="1400">
+            <figcaption>A street after dark, Panchkula</figcaption>
+          </figure>
+        </div>
+
+        <div class="reasons">
+          <article class="reason reveal">
+            <span class="reason-num">01</span>
+            <h3 data-i18n="r1">Apps nobody installs</h3>
+            <p data-i18n="r1p">Most complaint apps need a smartphone, a login, and patience. The person who walks past the broken drain every day often has none of the three.</p>
+          </article>
+          <article class="reason reveal">
+            <span class="reason-num">02</span>
+            <h3 data-i18n="r2">Portals nobody reads</h3>
+            <p data-i18n="r2p">Complaints land in a general queue. The engineer who could fix it in an afternoon never hears about it.</p>
+          </article>
+          <article class="reason reveal">
+            <span class="reason-num">03</span>
+            <h3 data-i18n="r3">"Closed" isn't "fixed"</h3>
+            <p data-i18n="r3p">Tickets get marked resolved without anyone checking. The citizen is never asked.</p>
+          </article>
+        </div>
+
+        <figure class="flood reveal">
+          <video muted loop playsinline preload="none" poster="assets/video/flood-mumbai-poster.jpg" data-autoplay-visible aria-label="Dashcam footage of traffic on a flooded Mumbai road, 29 August 2017">
+            <source src="assets/video/flood-mumbai.mp4" type="video/mp4">
+          </video>
+          <figcaption>
+            <blockquote data-i18n="floodQuote">Every monsoon, the same streets. The same complaints. Usually sent to the same wrong address.</blockquote>
+            <span class="flood-meta">Mumbai, 29 August 2017</span>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
-    <!-- How it works -->
-    <section class="section" id="how">
+    <!-- ============ How it works ============ -->
+    <section class="section how" id="how">
       <div class="container">
-        <h2 data-i18n="howTitle">How it works</h2>
-        <ol class="steps">
-          <li>
-            <span class="step-num">1</span>
-            <h3 data-i18n="h1">Call</h3>
-            <p data-i18n="h1p">Press "Make a complaint" or dial the number. Our assistant Sahayak listens in your language.</p>
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="howKicker">How it works</p>
+          <h2 data-i18n="howTitle">One call in. Updates out. Nobody installs anything.</h2>
+        </div>
+
+        <ol class="timeline" id="timeline">
+          <li class="tl-step reveal">
+            <div class="tl-art art-call" aria-hidden="true">
+              <svg viewBox="0 0 120 120"><circle class="pulse" cx="60" cy="60" r="34"/><circle cx="60" cy="60" r="30" fill="var(--marigold)"/><path d="M48 50a20 20 0 0 0 22 22l4-4a2 2 0 0 0-.4-2.8l-5-3a2 2 0 0 0-2.4.3l-2 2a14 14 0 0 1-6.7-6.7l2-2a2 2 0 0 0 .3-2.4l-3-5a2 2 0 0 0-2.8-.4z" fill="var(--ink)"/></svg>
+            </div>
+            <div>
+              <span class="tl-num">1</span>
+              <h3 data-i18n="s1">Call and talk</h3>
+              <p data-i18n="s1p">Press "Make a complaint" or dial the number. Sahayak, our voice assistant, asks what's wrong and where, in Hindi, English, Marathi or your language. About two minutes.</p>
+            </div>
           </li>
-          <li>
-            <span class="step-num">2</span>
-            <h3 data-i18n="h2">Share on WhatsApp</h3>
-            <p data-i18n="h2p">You get a ticket number and a WhatsApp link to add a photo and the exact location.</p>
+          <li class="tl-step reveal">
+            <div class="tl-art art-wa" aria-hidden="true">
+              <svg viewBox="0 0 120 120"><rect x="28" y="14" width="64" height="92" rx="12" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/><rect x="36" y="30" width="48" height="30" rx="4" fill="var(--sky)"/><path class="pin" d="M60 62c-6 0-10 4.5-10 10 0 7 10 16 10 16s10-9 10-16c0-5.5-4-10-10-10z" fill="var(--chili)"/><circle class="pin" cx="60" cy="72" r="3.5" fill="var(--paper)"/></svg>
+            </div>
+            <div>
+              <span class="tl-num">2</span>
+              <h3 data-i18n="s2">Add a photo on WhatsApp</h3>
+              <p data-i18n="s2p">You get a ticket number and a WhatsApp message. Tap it, send a photo and drop a location pin, so the officer knows exactly which pole or pothole.</p>
+            </div>
           </li>
-          <li>
-            <span class="step-num">3</span>
-            <h3 data-i18n="h3">Reaches the right officer</h3>
-            <p data-i18n="h3p">We find the officer responsible for that ward and issue type, and send it to their inbox.</p>
+          <li class="tl-step reveal">
+            <div class="tl-art art-scan" aria-hidden="true">
+              <div class="scan-photo"><img src="assets/img/pothole-kolkata.jpg" alt="" loading="lazy"><span class="scan-line"></span><span class="scan-tag">Pothole · High</span></div>
+            </div>
+            <div>
+              <span class="tl-num">3</span>
+              <h3 data-i18n="s3">We read the photo</h3>
+              <p data-i18n="s3p">The photo is checked to confirm the type of problem and how serious it is. A live wire jumps the queue; a faded road marking waits its turn.</p>
+            </div>
           </li>
-          <li>
-            <span class="step-num">4</span>
-            <h3 data-i18n="h4">You confirm the fix</h3>
-            <p data-i18n="h4p">Every status change comes to you on WhatsApp. A ticket closes only when you say it's fixed.</p>
+          <li class="tl-step reveal">
+            <div class="tl-art art-route" aria-hidden="true">
+              <svg viewBox="0 0 120 120"><circle cx="20" cy="60" r="9" fill="var(--marigold)"/><path class="route-path" d="M29 60 C55 60 55 26 92 26" /><path class="route-path faint" d="M29 60 C55 60 55 94 92 94"/><path class="route-path faint" d="M29 60 H92"/><circle cx="100" cy="26" r="9" fill="var(--leaf)"/><circle cx="100" cy="60" r="7" fill="var(--line)"/><circle cx="100" cy="94" r="7" fill="var(--line)"/></svg>
+            </div>
+            <div>
+              <span class="tl-num">4</span>
+              <h3 data-i18n="s4">It reaches one person</h3>
+              <p data-i18n="s4p">Ward + problem type decides who owns it. The officer gets an email or WhatsApp with three buttons: Resolved, In progress, Not my area. No app, no password.</p>
+            </div>
+          </li>
+          <li class="tl-step reveal">
+            <div class="tl-art art-done" aria-hidden="true">
+              <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="34" fill="var(--leaf)"/><path class="tick" d="M44 61l11 11 22-24" fill="none" stroke="var(--paper)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <span class="tl-num">5</span>
+              <h3 data-i18n="s5">You decide it's fixed</h3>
+              <p data-i18n="s5p">When the officer marks it done, we ask you: "Is it really fixed? Send a photo." Say no, and it goes back to them, and up the chain if it's ignored.</p>
+            </div>
           </li>
         </ol>
       </div>
     </section>
 
-    <!-- Issues -->
-    <section class="section section-alt">
+    <!-- ============ Demo ============ -->
+    <section class="section demo" id="demo">
+      <div class="container demo-grid">
+        <div class="demo-copy reveal">
+          <p class="kicker light" data-i18n="demoKicker">Demo</p>
+          <h2 data-i18n="demoTitle">Follow one complaint from a phone call to a working streetlight.</h2>
+          <ol class="chapters" id="chapters">
+            <li><button type="button" data-goto="0"><span class="ch-time">0:00</span><span data-i18n="c1">Ramesh calls the helpline</span></button></li>
+            <li><button type="button" data-goto="1"><span class="ch-time">0:05</span><span data-i18n="c2">He explains in Hindi</span></button></li>
+            <li><button type="button" data-goto="2"><span class="ch-time">0:10</span><span data-i18n="c3">Photo and pin on WhatsApp</span></button></li>
+            <li><button type="button" data-goto="3"><span class="ch-time">0:14</span><span data-i18n="c4">Ward officer gets it</span></button></li>
+            <li><button type="button" data-goto="4"><span class="ch-time">0:18</span><span data-i18n="c5">Ramesh confirms the fix</span></button></li>
+          </ol>
+          <button class="play-toggle" id="playToggle" type="button" aria-pressed="false">
+            <svg class="icon i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" fill="currentColor"/></svg>
+            <svg class="icon i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+            <span data-i18n="pause">Pause</span>
+          </button>
+        </div>
+
+        <div class="demo-stage reveal">
+          <div class="phone" id="demoPlayer">
+            <video id="demoVideo" class="demo-video" muted playsinline loop preload="metadata" hidden></video>
+            <div class="phone-notch" aria-hidden="true"></div>
+            <div class="story" id="story" aria-live="polite">
+              <div class="story-progress" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+
+              <div class="scene" data-scene="0">
+                <div class="call-screen">
+                  <div class="caller-avatar">NS</div>
+                  <p class="call-name">Nagrik Setu</p>
+                  <p class="call-timer">00:04</p>
+                  <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                </div>
+                <div class="bubble agent" lang="hi">नमस्ते! नागरिक सेतु में आपका स्वागत है। बताइए, आज मैं आपकी क्या मदद कर सकती हूँ?</div>
+              </div>
+
+              <div class="scene" data-scene="1">
+                <div class="bubble caller" lang="hi">हमारी गली में तीन दिन से स्ट्रीटलाइट बंद है।</div>
+                <div class="bubble agent" lang="hi">समझ गई। यह किस शहर और इलाके में है?</div>
+                <div class="bubble caller">Mumbai, Andheri West, Lokhandwala.</div>
+                <div class="bubble agent" lang="hi">आपका टिकट नंबर है N S, एक, शून्य, चार, दो।</div>
+              </div>
+
+              <div class="scene" data-scene="2">
+                <div class="wa">
+                  <div class="wa-bar"><span class="wa-av">NS</span> Nagrik Setu</div>
+                  <div class="wa-in">Complaint <b>NS-1042</b> registered. Please send a photo and your location.</div>
+                  <div class="wa-out wa-img"><img src="assets/img/streetlight-night.jpg" alt="" loading="lazy"></div>
+                  <div class="wa-out wa-loc"><span class="mini-map"></span>📍 Lokhandwala Back Road</div>
+                  <div class="wa-in">Got it. Sent to the officer for your ward. ✔️</div>
+                </div>
+              </div>
+
+              <div class="scene" data-scene="3">
+                <div class="mail">
+                  <p class="mail-from">To: JE Electrical, K/West ward</p>
+                  <p class="mail-subj">New complaint in your area · NS-1042</p>
+                  <img class="mail-img" src="assets/img/streetlight-night.jpg" alt="" loading="lazy">
+                  <p class="mail-meta">Streetlight off for 3 days · Severity: High</p>
+                  <div class="mail-actions">
+                    <span class="m-btn ok">Resolved</span>
+                    <span class="m-btn wip pressed">In progress</span>
+                    <span class="m-btn no">Not my area</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="scene" data-scene="4">
+                <div class="wa">
+                  <div class="wa-bar"><span class="wa-av">NS</span> Nagrik Setu</div>
+                  <div class="wa-in">The officer marked <b>NS-1042</b> as resolved. Is the light working now?</div>
+                  <div class="wa-out">Haan, kal raat se jal rahi hai 👍</div>
+                  <div class="wa-in">Thank you, Ramesh ji. Ticket closed. 🙏</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="demo-note" data-i18n="demoNote">Tap the phone to pause.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Features ============ -->
+    <section class="section features" id="features">
       <div class="container">
-        <h2 data-i18n="issuesTitle">What you can report</h2>
-        <ul class="issues">
-          <li>💡 <span data-i18n="i1">Streetlights</span></li>
-          <li>🕳️ <span data-i18n="i2">Potholes &amp; roads</span></li>
-          <li>🗑️ <span data-i18n="i3">Garbage</span></li>
-          <li>🚰 <span data-i18n="i4">Water supply</span></li>
-          <li>🌊 <span data-i18n="i5">Drainage &amp; sewage</span></li>
-          <li>⚡ <span data-i18n="i6">Electric wires</span></li>
-          <li>🐕 <span data-i18n="i7">Stray animals</span></li>
-          <li>🌳 <span data-i18n="i8">Fallen trees</span></li>
-          <li>🚻 <span data-i18n="i9">Public toilets</span></li>
-          <li>🦟 <span data-i18n="i10">Mosquitoes &amp; stagnant water</span></li>
-        </ul>
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="featKicker">Features</p>
+          <h2 data-i18n="featTitle">Small things that make complaints actually land.</h2>
+        </div>
+
+        <div class="bento">
+          <article class="card card-voice reveal">
+            <div class="card-art wave big" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <h3 data-i18n="f1">Speaks your language</h3>
+            <p data-i18n="f1p">Hindi, English, Marathi, Hinglish and more. Switch mid-sentence; Sahayak switches with you.</p>
+          </article>
+
+          <article class="card card-noapp reveal">
+            <div class="keypad" aria-hidden="true"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>*</span><span>0</span><span>#</span></div>
+            <h3 data-i18n="f2">Works on any phone</h3>
+            <p data-i18n="f2p">A ₹1,000 keypad phone is enough to register a complaint. No app, no account.</p>
+          </article>
+
+          <article class="card card-photo reveal">
+            <div class="scan-photo wide" aria-hidden="true"><img src="assets/img/garbage-delhi.jpg" alt="" loading="lazy"><span class="scan-line"></span><span class="scan-tag">Garbage · Medium</span></div>
+            <h3 data-i18n="f3">Photo check</h3>
+            <p data-i18n="f3p">Each photo is read to confirm the category and severity, so urgent problems rise to the top.</p>
+          </article>
+
+          <article class="card card-route reveal">
+            <div class="ward-grid" aria-hidden="true"><span></span><span></span><span class="on"></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            <h3 data-i18n="f4">Ward-level routing</h3>
+            <p data-i18n="f4p">Location pin → ward → department → one named officer. If we don't know the officer yet, it goes to the city or district office instead.</p>
+          </article>
+
+          <article class="card card-heal reveal">
+            <div class="heal" aria-hidden="true">
+              <span class="heal-row a">JE Electrical, K/East <em>Not my area</em></span>
+              <span class="heal-row b">JE Electrical, K/West <em>Updated ✓</em></span>
+            </div>
+            <h3 data-i18n="f5">A directory that fixes itself</h3>
+            <p data-i18n="f5p">When an officer taps "Not my area, it's X", the ticket moves to X and the directory remembers, so the next complaint goes right first time.</p>
+          </article>
+
+          <article class="card card-timer reveal">
+            <svg class="timer" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="32" fill="none" stroke="var(--line)" stroke-width="7"/><circle class="timer-arc" cx="40" cy="40" r="32" fill="none" stroke="var(--chili)" stroke-width="7" stroke-linecap="round"/><text x="40" y="46" text-anchor="middle">48h</text></svg>
+            <h3 data-i18n="f6">Escalates if ignored</h3>
+            <p data-i18n="f6p">No reply in time? The complaint moves up to the officer's senior, automatically.</p>
+          </article>
+
+          <article class="card card-close reveal">
+            <div class="close-q" aria-hidden="true"><span class="q">Is it fixed?</span><span class="yes">Yes ✓</span><span class="no">No, reopen</span></div>
+            <h3 data-i18n="f7">You close the ticket</h3>
+            <p data-i18n="f7p">Not the officer, not us. A complaint is only closed when the person who reported it says so.</p>
+          </article>
+
+          <article class="card card-map reveal">
+            <img src="assets/img/mumbai-scene.jpg" alt="" loading="lazy" class="card-bg">
+            <div class="card-map-copy">
+              <h3 data-i18n="f8">Open for everyone to see</h3>
+              <p data-i18n="f8p">Every ticket (without personal details) shows on a public map: open, in progress, fixed.</p>
+              <a class="text-link" href="#map" data-i18n="f8a">See the map →</a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
-    <!-- Why -->
-    <section class="section">
-      <div class="container features">
-        <div class="feature">
-          <h3 data-i18n="f1">No app to install</h3>
-          <p data-i18n="f1p">A basic phone call is enough. No sign-up, no passwords, no training.</p>
-        </div>
-        <div class="feature">
-          <h3 data-i18n="f2">Not lost in a portal</h3>
-          <p data-i18n="f2p">Your complaint goes to one named, responsible officer, not a general inbox nobody checks.</p>
-        </div>
-        <div class="feature">
-          <h3 data-i18n="f3">Gets smarter every reply</h3>
-          <p data-i18n="f3p">When an officer says "not my area, it's X", the directory updates itself, so the next complaint goes right first time.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Officers -->
-    <section class="section section-alt">
-      <div class="container officer-band">
-        <div>
-          <h2 data-i18n="offTitle">Are you an officer?</h2>
-          <p data-i18n="offP">Call the same number and tell Sahayak the area and department you handle. After verification, complaints reach you by email or WhatsApp with one-tap buttons. No app, no login.</p>
-        </div>
-        <a class="btn btn-ghost btn-lg" href="tel:+917969215737" data-call data-i18n="offBtn">Register by phone</a>
-      </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="section cta-final">
+    <!-- ============ Map ============ -->
+    <section class="section map-section" id="map">
       <div class="container">
-        <h2 data-i18n="ctaTitle">Seen a problem today?</h2>
-        <p data-i18n="ctaP">It takes about two minutes.</p>
-        <a class="btn btn-primary btn-lg" href="tel:+917969215737" data-call>
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="mapKicker">Public map</p>
+          <h2 data-i18n="mapTitle">What's broken, what's being fixed, and what got done.</h2>
+        </div>
+        <div class="map-wrap reveal">
+          <div class="map-filters" role="group" aria-label="Filter tickets">
+            <button type="button" class="chip-btn active" data-filter="all"><span data-i18n="mAll">All</span> <b id="cAll">0</b></button>
+            <button type="button" class="chip-btn" data-filter="open"><i class="sw open"></i><span data-i18n="mOpen">Open</span> <b id="cOpen">0</b></button>
+            <button type="button" class="chip-btn" data-filter="progress"><i class="sw progress"></i><span data-i18n="mProg">In progress</span> <b id="cProgress">0</b></button>
+            <button type="button" class="chip-btn" data-filter="fixed"><i class="sw fixed"></i><span data-i18n="mFixed">Fixed</span> <b id="cFixed">0</b></button>
+          </div>
+          <div id="leafletMap" class="leaflet-box" role="img" aria-label="Map of sample complaints across Mumbai"></div>
+          <p class="map-note" data-i18n="mapNote">Sample tickets for demonstration. Live tickets appear here once the pilot starts.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Officers ============ -->
+    <section class="section officers" id="officers">
+      <div class="container officers-grid">
+        <div class="officers-copy reveal">
+          <p class="kicker" data-i18n="offKicker">For officers</p>
+          <h2 data-i18n="offTitle">Three buttons. That's the whole system for you.</h2>
+          <p data-i18n="offP">Complaints for your ward arrive in the inbox or WhatsApp you already use, with a photo and an exact pin. Tap once to update the citizen. Wrong person? Tell us who, and we'll fix the record.</p>
+          <ul class="ticks">
+            <li data-i18n="offL1">No app, no login, no training</li>
+            <li data-i18n="offL2">Only complaints for your area and department</li>
+            <li data-i18n="offL3">Register yourself by phone in two minutes</li>
+          </ul>
+          <a class="btn btn-ink btn-lg" href="tel:+917969215737" data-call>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>
+            <span data-i18n="offBtn">Register as an officer</span>
+          </a>
+        </div>
+
+        <div class="inbox reveal" aria-hidden="true">
+          <div class="inbox-bar"><span></span><span></span><span></span></div>
+          <div class="inbox-body">
+            <p class="ib-from"><b>Nagrik Setu</b> &lt;tickets@nagriksetu&gt;</p>
+            <p class="ib-subj">New complaint in K/West · NS-1042 · Streetlight</p>
+            <div class="ib-content">
+              <img src="assets/img/streetlight-night.jpg" alt="" loading="lazy">
+              <div>
+                <p><b>Where:</b> Lokhandwala Back Road, near the market</p>
+                <p><b>Reported:</b> 3 days ago · <b>Severity:</b> High</p>
+                <p><b>Citizen says:</b> "Light has been off for three nights. Very dark for people walking home."</p>
+              </div>
+            </div>
+            <div class="ib-actions">
+              <span class="ib-btn ok">Resolved</span>
+              <span class="ib-btn wip">In progress</span>
+              <span class="ib-btn no" id="notMine">Not my area</span>
+            </div>
+            <div class="ib-forward">
+              <span data-i18n="ibFwd">It's handled by:</span>
+              <span class="typed" id="typed"></span><span class="caret"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ People ============ -->
+    <section class="people">
+      <img class="people-img" src="assets/img/street-cleaner.jpg" alt="A smiling sanitation worker in an orange safety vest on a Mumbai street" loading="lazy">
+      <div class="people-copy reveal">
+        <p class="hand" data-i18n="peopleHand">the people who fix the city</p>
+        <h2 data-i18n="peopleTitle">Cities are fixed by people. We just make sure the message reaches them.</h2>
+        <p data-i18n="peopleP">Linemen, sanitation workers, ward engineers. Most of them want to fix things. Nagrik Setu gets them a clear complaint, a photo and an exact location, instead of a forwarded forward.</p>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section faq" id="faq">
+      <div class="container faq-grid">
+        <div class="section-head reveal">
+          <p class="kicker" data-i18n="faqKicker">Questions</p>
+          <h2 data-i18n="faqTitle">Things people ask us</h2>
+        </div>
+        <div class="faq-list">
+          <details class="reveal">
+            <summary data-i18n="q1">Is Nagrik Setu a government service?</summary>
+            <p data-i18n="a1">No. We are an independent citizen service. We forward your complaint to the government officer responsible for it and track it until it's closed.</p>
+          </details>
+          <details class="reveal">
+            <summary data-i18n="q2">Does it cost anything?</summary>
+            <p data-i18n="a2">It's free for citizens. You only pay your normal call charges. We will never ask you for money, an OTP, or bank details.</p>
+          </details>
+          <details class="reveal">
+            <summary data-i18n="q3">I don't have WhatsApp. Can I still complain?</summary>
+            <p data-i18n="a3">Yes. The complaint is registered and sent to the officer from the call alone. You can also give a family member's WhatsApp number for photos and updates.</p>
+          </details>
+          <details class="reveal">
+            <summary data-i18n="q4">Which cities does it work in?</summary>
+            <p data-i18n="a4">Complaints from anywhere in India are accepted. Where we know the exact ward officer, it goes to them; otherwise to the city or district office. We're starting ward-level coverage with Mumbai.</p>
+          </details>
+          <details class="reveal">
+            <summary data-i18n="q5">What happens to my phone number?</summary>
+            <p data-i18n="a5">It's used only to send you updates about your complaint. It is never shown on the public map or shared with anyone except the officer handling it.</p>
+          </details>
+          <details class="reveal">
+            <summary data-i18n="q6">What if it's an emergency?</summary>
+            <p data-i18n="a6">For fire, accidents, a live wire on the road, or any danger to life, call 112 first. You can report it to us afterwards so the department also knows.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Final CTA ============ -->
+    <section class="final">
+      <img class="final-img" src="assets/img/vendors-kalbadevi.jpg" alt="" loading="lazy">
+      <div class="container final-inner reveal">
+        <h2 data-i18n="ctaTitle">Seen something broken on your way home?</h2>
+        <p data-i18n="ctaP">It takes about two minutes. Somebody responsible will hear about it today.</p>
+        <a class="btn btn-marigold btn-xl" href="tel:+917969215737" data-call>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>
           <span data-i18n="makeComplaint">Make a complaint</span>
         </a>
+        <a class="final-number" href="tel:+917969215737" data-call>+91 79 6921 5737</a>
       </div>
     </section>
   </main>
 
+  <!-- ============ Footer ============ -->
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="emergency"><strong data-i18n="emTitle">Emergency?</strong> <span data-i18n="emP">For fire, accidents or danger to life, call</span> <a href="tel:112">112</a>.</p>
-      <p class="disclaimer" data-i18n="disclaimer">Nagrik Setu is an independent citizen service and is not a government body. We forward your complaint to the responsible officials.</p>
-      <p class="copy">© 2026 Nagrik Setu</p>
+    <div class="container footer-grid">
+      <div>
+        <p class="footer-brand">Nagrik Setu <span lang="hi">नागरिक सेतु</span></p>
+        <p class="emergency"><strong data-i18n="emTitle">Emergency?</strong> <span data-i18n="emP">For fire, accidents or danger to life, call</span> <a href="tel:112">112</a>.</p>
+        <p data-i18n="disclaimer">Nagrik Setu is an independent citizen service and is not a government body. We forward complaints to the responsible officials.</p>
+      </div>
+      <div class="credits">
+        <p class="credits-title" data-i18n="credits">Photo and video credits</p>
+        <ul>
+          <li>Street in Mumbai (video): Nicolas Vigier, <a href="https://commons.wikimedia.org/wiki/File:Street_in_Mumbai_(video)_03.webm">CC0</a></li>
+          <li>Mumbai floods, 29 Aug 2017 (video): usernamesoldout, <a href="https://commons.wikimedia.org/wiki/File:Aug_29_2017_Mumbai_Floods.webm">CC BY 3.0</a></li>
+          <li>Pothole, Kolkata: Slyronit, <a href="https://commons.wikimedia.org/wiki/File:Potholed_road_outside_Kolkata_Airport.jpg">CC BY-SA 4.0</a></li>
+          <li>Garbage, Batla House: Aafi, <a href="https://commons.wikimedia.org/wiki/File:Garbage_heap_in_Batla_House,_New_Delhi,_18_June_2024.jpg">CC BY-SA 4.0</a></li>
+          <li>Mumbai monsoon: PlaneMad, <a href="https://commons.wikimedia.org/wiki/File:Mumbai_monsoon.jpg">CC BY-SA 3.0</a></li>
+          <li>Street lights, Panchkula: Sahil Dhiman, <a href="https://commons.wikimedia.org/wiki/File:Night_lit_by_street_lights_in_Panchkula,_India.jpg">CC BY-SA 4.0</a></li>
+          <li>Mumbai street scene: Ryan from Toronto, <a href="https://commons.wikimedia.org/wiki/File:Mumbai_street_scene_(6409592653).jpg">CC BY 2.0</a></li>
+          <li>Mumbai street cleaner: Steve Evans, <a href="https://commons.wikimedia.org/wiki/File:Mumbai_Street_Cleaner_(2647740379).jpg">CC BY 2.0</a></li>
+          <li>Street food vendors, Kalbadevi: Radosław Botev, <a href="https://commons.wikimedia.org/wiki/File:Street_food_vendors_in_Kalbadevi,_Mumbai_(3).jpg">CC BY 3.0 PL</a></li>
+        </ul>
+        <p class="credits-note">Photos resized and cropped. Clips trimmed and muted. Map data © OpenStreetMap contributors.</p>
+      </div>
     </div>
+    <div class="container copy">© 2026 Nagrik Setu</div>
   </footer>
 
   <!-- Sticky call bar on mobile -->
   <a class="mobile-call" href="tel:+917969215737" data-call>
-    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/></svg>
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-phone"/></svg>
     <span data-i18n="makeComplaint">Make a complaint</span>
   </a>
 
   <!-- Desktop call dialog -->
   <dialog class="call-dialog" id="callDialog" aria-labelledby="callDialogTitle">
-    <form method="dialog" class="dialog-close-form">
-      <button class="dialog-close" aria-label="Close">×</button>
-    </form>
+    <form method="dialog" class="dialog-close-form"><button class="dialog-close" aria-label="Close">×</button></form>
     <h2 id="callDialogTitle" data-i18n="dlgTitle">Call to make a complaint</h2>
     <p data-i18n="dlgP">Scan with your phone camera to call, or dial the number below.</p>
     <div class="qr" id="qr" aria-hidden="true"></div>
     <p class="dialog-number">+91 79 6921 5737</p>
     <div class="dialog-actions">
       <button class="btn btn-ghost" type="button" id="copyNumber" data-i18n="copy">Copy number</button>
-      <a class="btn btn-primary" href="tel:+917969215737" data-i18n="callDevice">Call from this device</a>
+      <a class="btn btn-ink" href="tel:+917969215737" data-i18n="callDevice">Call from this device</a>
     </div>
   </dialog>
 
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z" fill="currentColor"/></symbol>
+  </svg>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
   <script src="app.js" defer></script>
 </body>
